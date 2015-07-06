@@ -130,6 +130,9 @@
 			.slider_main ul li{float:left;overflow:hidden;}
 			.slider_prev{position: absolute;top:0;left:0;height:1.875em;line-height: 1.875em;background:rgba(239,239,239,.5);padding:0 0.625em;margin-top:5.3125em;text-decoration: none;color:rgb(100,149,237);}
 			.slider_next{position: absolute;top:0;right:0;height:1.875em;line-height: 1.875em;background:rgba(239,239,239,.5);padding:0 0.625em;margin-top:5.3125em;text-decoration: none;color:rgb(100,149,237);}
+			.slider_mark{position:absolute;left:0.3125em;bottom:0.625em;right:0.3125em;text-align:center;}
+			.slider_mark a{width:0.625em;height:0.625em;overflow:hidden;border-radius:0.625em;background:rgb(169,169,169);display:inline-block;margin:0 0.3125em;text-indent:-624.9375em;}
+			.slider_mark a.on{background:rgb(255,165,0);}
 
 			.send_form{}
 			.send_form_header h1{font-size:0.875em;padding:0.625em 0;margin:0 0.3125em;text-align: center;color:rgb(153,153,153);}
@@ -147,6 +150,12 @@
 			.send_form_main .radio.on.long{width:6.25em;}			
 			.send_form_main table tbody tr td textarea{height:12.5em;}
 			.send_form_main table tfoot tr th,.send_form_main table tfoot tr td{padding:0.3125em 0;vertical-align: middle;}
+
+			.shopping{margin:0.625em;text-align: center;}
+			.shopping .buy_count{position:relative;overflow:hidden;margin:0 0 0.625em 0;height:3.75em;padding:0.625em;background:rgb(239,239,239);border-radius:0.3125em;text-align: center;}
+			.shopping .buy_count span{background:rgb(255,255,255);left:5%;right:5%;width:5em;position:absolute;top:0;font-weight:700;font-size:3.75em;margin:0 auto;}
+			.shopping .buy_count span:first-child{z-index: 1;}
+			.shopping .buy,.shopping .buy_cancel{margin:0 0.3125em;}
 
 			.footer{clear:both;margin:0.625em 0 0;font-size:0.75em;text-align: center;padding:0.625em 0;background:rgb(239,239,239);}
 		</style>
@@ -181,6 +190,7 @@
 						<li><a title="大麦猴盒" target="_blank" href="2"><img src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" alt="大麦猴盒" srcset="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1 2x"></a></li>
 						<li><a title="用科技诠释爱" target="_blank" href="3"><img src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" alt="用科技诠释爱" srcset="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1 2x"></a></li>
 					</ul>
+					<div class="slider_mark"><a href="#">1</a><a href="#">2</a><a href="#">3</a></div>
 				</div>
 				<a href="#" class="slider_prev">prev</a>
 				<a href="#" class="slider_next">next</a>
@@ -369,7 +379,12 @@
 							</div>
 						</article>
 					</div>
-					<div class="tab_item">3</div>
+					<div class="tab_item">
+						<div class="shopping">
+							<p class="buy_count"><span>0</span></p>
+							<button class="buy button">Buy</button><button class="buy_cancel button">Cancel</button>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -557,7 +572,7 @@
 
 			    $(".tabpage").tab({
 			    	navItem: "a",
-			    	tabDefaultNavIndex:1
+			    	tabDefaultNavIndex:2
 			    });
 
 			    function _play(num){
@@ -614,16 +629,20 @@
 			    	},
 			    	prev: function(){
 			    		_play.call(this, -1);
+			    		return this;
 			    	},
 			    	next: function(){
 			    		_play.call(this, 1);
+			    		return this;
 			    	},
 			    	stop: function(){
 				    	self.iTimeout && clearTimeout(self.iTimeout);
+				    	return this;
 			    	},
 			    	play: function(){
 			    		this.isStop = false;
 			    		this.next();
+			    		return this;
 			    	}
 			    };
 			    slider.fn.init.prototype = slider.fn;
@@ -648,6 +667,9 @@
 			    	}).find("li").css({
 			    		width:bannerWidth
 			    	});
+			    	function sliderMark(num){
+			    		$(".slider_mark a").removeClass('on').eq(num).addClass("on");
+			    	}
 			    	slider($.extend({
 				    	interval: 5000,
 				    	max: banners.length,
@@ -655,13 +677,16 @@
 				    		var self = this;
 				    		$(".slider_prev").click(function(e){
 				    			e.preventDefault();
-				    			self.stop();
-				    			self.prev();
+				    			self.stop().prev();
 				    		});
 				    		$(".slider_next").click(function(e){
 				    			e.preventDefault();
-				    			self.stop();
-				    			self.next();
+				    			self.stop().next();
+				    		});
+				    		$(".slider_mark a").click(function(e){
+				    			e.preventDefault();
+				    			self.start = $(this).index()-1;
+				    			self.stop().next();
 				    		});
 				    	},
 				    	prevCallback:function(num,end){
@@ -675,12 +700,14 @@
 									left: -(bannerWidth * (num-1))
 								}, "slow", function(){
 									end();
+									sliderMark(self.start);
 								});
 							}else{
 					    		ani.animate({
 					    			left: -(bannerWidth * num)
 					    		}, "slow", function(){
 									end();
+									sliderMark(self.start);
 								});
 					    	}
 				    	},
@@ -696,12 +723,14 @@
 										left: 0
 									});
 									end();
+									sliderMark(self.start);
 								});
 							} else {
 								ani.animate({
 									left: -(bannerWidth * num)
 								}, "slow", function() {
 									end();
+									sliderMark(self.start);
 								});
 							}
 						}
@@ -709,7 +738,101 @@
 			    };
 
 			    $(".slider_banner").slider();
+
+			    var roller = function(ops){
+			    	return new roller.fn.init(ops);
+			    };
+			    roller.fn = roller.prototype ={
+			    	init:function(ops){
+			    		this.start = 0;
+			    		this.max = 99;
+			    		$.extend((this.config={}), ops);
+			    		this.config.start && (this.start = this.config.start);
+			    		this.config.max && (this.max = this.config.max);
+			    		this.oldStart = this.start;
+			    		this.config.ready && this.config.ready.call(this);
+			    		return this;
+			    	},
+			    	increase:function(elem, end){
+			    		this.start +=1;
+			    		if (this.start >= this.max) this.start = this.max;
+			    		this.config.increase && this.config.increase(this.start, end);
+			    		return this;
+			    	},
+			    	reduce:function(elem, end){
+			    		this.start -=1;
+			    		if (this.start <= this.oldStart) this.start = this.oldStart;
+			    		this.config.increase && this.config.reduce(this.start, end);
+			    		return this;
+			    	}
+			    };
+			    roller.fn.init.prototype = roller.fn;
+
+			    $.fn.roller = function(ops){
+			    	var elem = this,
+			    		panel = $(elem).find("p.buy_count"),
+			    		start = 500;
+			    	function fixRoller(type, num, end){
+			    		var old = panel.find("span").eq(0),
+			    			card = old.clone().hide().html(num);
+			    		panel.append(card);
+			    		old.animate({
+			    			top:type>0 ? -panel.height() : panel.height(),
+			    			zIndex:1
+			    		},start);
+			    		card.show().css({
+			    			position:"absolute",
+			    			top: type>0 ? panel.height() : -panel.height(),
+			    			zIndex:2
+			    		}).animate({
+			    			top:0
+			    		},(start-ops.interval),function(){
+			    			old.replaceWith(card);
+			    			end && end();
+			    		});
+			    	}
+
+				    return roller($.extend({
+				    	ready:function(){
+				    		var self = this,
+				    			a = $(elem).find("button.buy"),
+				    			b = $(elem).find("button.buy_cancel");
+				    		panel.find("span").eq(0).html(self.start);
+				    		a.data("isEnter", false).click(function(){
+				    			if (a.data("isEnter") == false) {
+				    				a.data("isEnter", true);
+				    				b.data("isEnter", true);
+				    				self.increase(panel, function(){
+				    					a.data("isEnter", false);
+				    					b.data("isEnter", false);
+				    				});
+				    			}
+				    		});
+				    		b.data("isEnter", false).click(function(){
+				    			if (b.data("isEnter") == false) {
+				    				b.data("isEnter", true);
+				    				a.data("isEnter", true);
+				    				self.reduce(panel, function(){
+				    					b.data("isEnter", false);
+				    					a.data("isEnter", false);
+				    				});
+				    			}
+				    		});
+				    	},
+				    	increase:function(num, end){
+				    		fixRoller(1, num, end);
+				    	},
+				    	reduce:function(num, end){
+				    		fixRoller(-1, num, end);
+				    	}
+				    }, ops));
+				};
 			    
+			    $(".shopping").roller({
+			    	start: 100,
+			    	max:200,
+			    	interval: 300
+			    });
 
 			})(this, jQuery);
 		</script>
