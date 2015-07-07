@@ -387,7 +387,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<script type="text/html" id="dialogtmpl">
 			<div class="dialog_blank"></div>
@@ -572,7 +571,7 @@
 
 			    $(".tabpage").tab({
 			    	navItem: "a",
-			    	tabDefaultNavIndex:2
+			    	tabDefaultNavIndex:0
 			    });
 
 			    function _play(num){
@@ -829,9 +828,46 @@
 				};
 			    
 			    $(".shopping").roller({
-			    	start: 100,
-			    	max:200,
+			    	start: 0,
+			    	max:9,
 			    	interval: 300
+			    });
+
+			    $.fn.loadMore = function(ops){
+			    	var elem = this,
+			    		more = $(elem).find(".list_more").data("index", 0);
+			    	$(win).on("scroll", function(){
+			    		if ($(elem).parents(ops.parent).is(":visible")){
+				    		var toTopevent = doc.documentElement.scrollTop || doc.body.scrollTop || 0,
+						    	top = more.offset().top,
+						    	winheight = doc.documentElement.clientHeight || doc.body.clientHeight || 0;
+					    	if (toTopevent >= top - winheight){
+					    		if (!more.data("isLoad")){
+					    			var index = more.data("isLoad", true).html(ops.loadingText).data("index");
+					    			index+=1;
+					    			if (index <= ops.max){
+						    			more.data("index", index);
+						    			ops.more && ops.more(index, function(){
+						    				more.data("isLoad", false).html(ops.loadedText);
+						    			});
+						    		}else{
+						    			more.data("isLoad", false).html(ops.loadedText);
+						    		}
+					    		}
+					    	}
+					    }
+			    	});
+			    };
+
+			    $(".datalist_main").loadMore({
+			    	max: 4,
+			    	parent: ".tab_item",
+			    	loadingText: "loading...",
+			    	loadedText: "loaded.",
+			    	more: function(index, end){
+			    		console.log(index)
+			    		end();
+			    	}
 			    });
 
 			})(this, jQuery);
