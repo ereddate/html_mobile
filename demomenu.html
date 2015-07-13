@@ -5,12 +5,17 @@
 		<meta charset="utf-8" />
 		<title>Html Mobile Demo</title>
 		<style>
+			html,body{width:100%;height:100%;}
 			body{position:relative;font-size:16px;font-family:"Microsoft YaHei";}
 			body,p,h1,h2,h3,h4,h5,h6,ul,li,menu,ol{list-style:none;padding:0;margin:0;}
 			header,article,footer,label{display:block;}
 			input,select,button{vertical-align: top;}
 
+			body{background:rgb(102,102,102);}
+
 			.hide{display:none;}
+			
+			.page{background:rgb(255,255,255);position:absolute;top:0;left:0;right:0;bottom:0;overflow:auto;overflow-x:hidden;padding-bottom:3.75em;}
 
 			.header{background:rgb(239,239,239);height:3.75em;line-height:3.75em;z-index: 99997;position:fixed;top:0;left:0;right:0;}
 			.header h1{font-size:1em;margin:0 0.625em;}
@@ -105,6 +110,12 @@
 			.tabpage .tab_item{background:rgb(255,255,255);}
 			.tabpage .item{margin:0;}
 
+			.bottom_button{position:fixed;bottom:0;left:0;right:0;height:3.75em;margin:0;background:rgb(239,239,239);}
+			.bottom_button a{height:100%;line-height:3.75em;padding:0 0.625em;width:6.25em;}
+			.bottom_button a.on{border-top-left-radius:0;border-top-right-radius:0;}
+			.bottom_button a.on:first-child{border-bottom-right-radius: 0;}
+			.bottom_button a.on:last-child{border-bottom-left-radius: 0;}
+
 			/*对话框*/
 			.dialog{position:fixed;top:35%;left:50%;background:rgb(255,255,255);z-index: 99999;margin:0 0 0 -25%;width:50%;border-radius: 0.3125em;overflow:hidden;border:0.3125em rgb(153,153,153) solid;border:0.3125em rgba(153,153,153,.7) solid;visibility:hidden;opacity: 0;}
 			.dialog header{background:rgb(239,239,239);position:relative;height:1.875em;line-height: 1.875em;}
@@ -127,7 +138,7 @@
 			.slider_banner{margin:0;position:relative;}
 			.slider_main{width:100%;overflow:hidden;height:12.5em;position:relative;}
 			.slider_main ul{position:absolute;top:0;}
-			.slider_main ul li{float:left;overflow:hidden;}
+			.slider_main ul li{overflow:hidden;}
 			.slider_prev{position: absolute;top:0;left:0;height:1.875em;line-height: 1.875em;background:rgba(239,239,239,.5);padding:0 0.625em;margin-top:5.3125em;text-decoration: none;color:rgb(100,149,237);}
 			.slider_next{position: absolute;top:0;right:0;height:1.875em;line-height: 1.875em;background:rgba(239,239,239,.5);padding:0 0.625em;margin-top:5.3125em;text-decoration: none;color:rgb(100,149,237);}
 			.slider_mark{position:absolute;left:0.3125em;bottom:0.625em;right:0.3125em;text-align:center;}
@@ -158,254 +169,271 @@
 			.shopping .buy,.shopping .buy_cancel{margin:0 0.3125em;}
 
 			.footer{clear:both;margin:0.625em 0 0;font-size:0.75em;text-align: center;padding:0.625em 0;background:rgb(239,239,239);}
+
+			.line_3d{
+			    -webkit-animation-name:y-ain;
+			    -webkit-animation-duration:5s;
+			    -webkit-animation-timing-function:ease;
+			    -webkit-animation-iteration-count:infinite;
+			}
+			       
+			@-webkit-keyframes y-ain{
+			    0%{-webkit-transform:rotateY(0deg);}
+			    30%{-webkit-transform:rotateY(180deg);}
+			    50%{-webkit-transform:rotateY(360deg);}
+			    70%{-webkit-transform:rotateY(180deg);}
+			    100%{-webkit-transform:rotateY(0deg);}
+			}
 		</style>
 		<script src="jquery.js"></script>
 	</head>
 	<body>
-		<header class="header">
-			<h1><a href="#">Logo</a></h1>
-			<span class="header_more">more</span>
-			<menu class="header_menu">
-				<li><a href="menu">menu1</a></li>
-				<li><a href="menu">menu2</a></li>
-				<li><a href="menu">menu3</a></li>
-				<li><a href="menu">menu4</a></li>
-				<li><a href="menu">menu5</a></li>
-				<li><a href="menu">menu6</a></li>
-			</menu>
-		</header>
-		<div class="main">
-			<!--div class="tab">
-				<div class="tab_nav"><a href="#">tab1</a><a href="#">tab2</a><a href="#">tab3</a></div>
-				<div class="tab_main">
-					<div class="tab_item"></div>
-					<div class="tab_item">2</div>
-					<div class="tab_item">3</div>
-				</div>
-			</div-->
-			<div class="slider_banner">
-				<div class="slider_main">
-					<ul>
-						<li><a title="端午特惠" target="_blank" href="1"><img src="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1" alt="端午特惠" srcset="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1 2x"></a></li>
-						<li><a title="大麦猴盒" target="_blank" href="2"><img src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" alt="大麦猴盒" srcset="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1 2x"></a></li>
-						<li><a title="用科技诠释爱" target="_blank" href="3"><img src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" alt="用科技诠释爱" srcset="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1 2x"></a></li>
-					</ul>
-					<div class="slider_mark"><a href="#">1</a><a href="#">2</a><a href="#">3</a></div>
-				</div>
-				<a href="#" class="slider_prev">prev</a>
-				<a href="#" class="slider_next">next</a>
-			</div>
-			<div class="tabpage">
-				<div class="tab_nav"><a href="#">datalist</a><a href="#">form</a><a href="#">tab3</a></div>
-				<div class="tab_main">
-					<div class="tab_item">
-						<article class="datalist_main">
-							<header class="datalist_header">
-								<h1>Data List(10)</h1>
-							</header>
-							<div class="view hide">loading...</div>
-							<div class="list">
-								<ul>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button dialog_open">dialog open</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-									<li>
-										<article class="item">
-											<header>
-												<h1>title</h1>
-												<p>description</p>
-											</header>
-											<div class="item_context">
-												<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-												<p><button class="button">button</button><button class="button">button</button></p>
-											</div>
-										</article>
-									</li>
-								</ul>
-							</div>
-							<div class="list_more"><a href="#">more...</a></div>
-						</article>
+		<div class="page">
+			<header class="header">
+				<h1><a href="#">Logo</a></h1>
+				<span class="header_more">more</span>
+				<menu class="header_menu">
+					<li><a href="menu">menu1</a></li>
+					<li><a href="menu">menu2</a></li>
+					<li><a href="menu">menu3</a></li>
+					<li><a href="menu">menu4</a></li>
+					<li><a href="menu">menu5</a></li>
+					<li><a href="menu">menu6</a></li>
+				</menu>
+			</header>
+			<div class="main">
+				<!--div class="tab">
+					<div class="tab_nav"><a href="#">tab1</a><a href="#">tab2</a><a href="#">tab3</a></div>
+					<div class="tab_main">
+						<div class="tab_item"></div>
+						<div class="tab_item">2</div>
+						<div class="tab_item">3</div>
 					</div>
-					<div class="tab_item">
-						<article class="send_form">
-							<header class="send_form_header">
-								<h1>form</h1>
-							</header>
-							<div class="send_form_main">
-								<form action="" method="post" name="">
-									<table>
-										<thead>
-											<th colspan="4"></th>
-										</thead>
-										<tbody>
-											<tr>
-												<th>姓名：</th>
-												<td colspan="3"><input type="text" value="" placeholder="请填写真实姓名" /></td>
-											</tr>
-											<tr>
-												<th>出生日期：</th>
-												<td colspan="3"><select><option>年</option></select><select><option>月</option></select><select><option>日</option></select></td>
-											</tr>
-											<tr>
-												<th>性别：</th>
-												<td colspan="3"><label class="radio on" for="male"><input type="radio" class="hide" value="male" name="gender" id="male" />选择男性</label><label class="radio" for="female"><input type="radio" class="hide" value="female" name="gender" id="female" />选择女性</label></td>
-											</tr>
-											<tr>
-												<th>自我介绍：</th>
-												<td colspan="3"><textarea placeholder="文字长度在10-200"></textarea></td>
-											</tr>
-											<tr>
-												<th>上传照片：</th>
-												<td colspan="3"><button class="fileupload button">上传照片</button><input type="file" accept="image/png,image/jpeg" /></td>
-											</tr>
-										</tbody>
-										<tfoot>
-											<tr>
-												<th></th>
-												<td colspan="3"></td>
-											</tr>
-											<tr>
-												<th></th>
-												<td colspan="3"><label class="radio on long" for="agree"><input class="hide" type="checkbox" value="" id="agree" />同意协议</label><button class="send_form_submit active_button">save</button></td>
-											</tr>
-										</tfoot>
-									</table>
-								</form>
-							</div>
-						</article>
+				</div-->
+				<div class="slider_banner">
+					<div class="slider_main">
+						<ul>
+							<li><a title="端午特惠" target="_blank" href="1"><img src="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1" alt="端午特惠" srcset="http://img.domyshop.com/editor/20150619/14347120563426.jpg?v=0.0.1 2x"></a></li>
+							<li><a title="大麦猴盒" target="_blank" href="2"><img src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1" alt="大麦猴盒" srcset="http://img.domyshop.com/editor/20150529/1432894360390.jpg?v=0.0.1 2x"></a></li>
+							<li><a title="用科技诠释爱" target="_blank" href="3"><img src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" data-src="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1" alt="用科技诠释爱" srcset="http://img.domyshop.com/editor/20150611/14340136837202.jpg?v=0.0.1 2x"></a></li>
+						</ul>
+						<div class="slider_mark"><a href="#">1</a><a href="#">2</a><a href="#">3</a></div>
 					</div>
-					<div class="tab_item">
-						<div class="shopping">
-							<p class="buy_count"><span>0</span></p>
-							<button class="buy button">Buy</button><button class="buy_cancel button">Cancel</button>
+					<a href="#" class="slider_prev">prev</a>
+					<a href="#" class="slider_next">next</a>
+				</div>
+				<div class="tabpage">
+					<div class="tab_nav bottom_button"><a href="#">datalist</a><a href="#">form</a><a href="#">tab3</a></div>
+					<div class="tab_main">
+						<div class="tab_item">
+							<article class="datalist_main">
+								<header class="datalist_header">
+									<h1>Data List(10)</h1>
+								</header>
+								<div class="view hide">loading...</div>
+								<div class="list">
+									<ul>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button dialog_open">dialog open</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+										<li>
+											<article class="item">
+												<header>
+													<h1>title</h1>
+													<p>description</p>
+												</header>
+												<div class="item_context">
+													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
+													<p><button class="button">button</button><button class="button">button</button></p>
+												</div>
+											</article>
+										</li>
+									</ul>
+								</div>
+								<div class="list_more"><a href="#">more...</a></div>
+							</article>
+						</div>
+						<div class="tab_item">
+							<article class="send_form">
+								<header class="send_form_header">
+									<h1>form</h1>
+								</header>
+								<div class="send_form_main">
+									<form action="" method="post" name="">
+										<table>
+											<thead>
+												<th colspan="4"></th>
+											</thead>
+											<tbody>
+												<tr>
+													<th>姓名：</th>
+													<td colspan="3"><input type="text" value="" placeholder="请填写真实姓名" /></td>
+												</tr>
+												<tr>
+													<th>出生日期：</th>
+													<td colspan="3"><select><option>年</option></select><select><option>月</option></select><select><option>日</option></select></td>
+												</tr>
+												<tr>
+													<th>性别：</th>
+													<td colspan="3"><label class="radio on" for="male"><input type="radio" class="hide" value="male" name="gender" id="male" />选择男性</label><label class="radio" for="female"><input type="radio" class="hide" value="female" name="gender" id="female" />选择女性</label></td>
+												</tr>
+												<tr>
+													<th>自我介绍：</th>
+													<td colspan="3"><textarea placeholder="文字长度在10-200"></textarea></td>
+												</tr>
+												<tr>
+													<th>上传照片：</th>
+													<td colspan="3"><button class="fileupload button">上传照片</button><input type="file" accept="image/png,image/jpeg" /></td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th></th>
+													<td colspan="3"></td>
+												</tr>
+												<tr>
+													<th></th>
+													<td colspan="3"><label class="radio on long" for="agree"><input class="hide" type="checkbox" value="" id="agree" />同意协议</label><button class="send_form_submit active_button">save</button></td>
+												</tr>
+											</tfoot>
+										</table>
+									</form>
+								</div>
+							</article>
+						</div>
+						<div class="tab_item">
+							<div class="shopping">
+								<p class="buy_count"><span>0</span></p>
+								<button class="buy button">Buy</button><button class="buy_cancel button">Cancel</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<script type="text/html" id="dialogtmpl">
-			<div class="dialog_blank"></div>
-			<article class="dialog">
-				<header>
-					<h1>title</h1>
-					<p><a href="#" class="close">close</a></p>
-				</header>
-				<div class="dialog_main">
-					<div class="dialog_context">
-						context
+				<script type="text/html" id="dialogtmpl">
+				<div class="dialog_blank"></div>
+				<article class="dialog">
+					<header>
+						<h1>title</h1>
+						<p><a href="#" class="close">close</a></p>
+					</header>
+					<div class="dialog_main">
+						<div class="dialog_context">
+							context
+						</div>
+						<div class="dialog_buttons"><button class="button active_button dialog_enter">Enter</button><button class="button dialog_cancel">Cancel</button></div>
 					</div>
-					<div class="dialog_buttons"><button class="button active_button dialog_enter">Enter</button><button class="button dialog_cancel">Cancel</button></div>
-				</div>
-			</article>
-		</script>
-		<footer class="footer">
-			&copy; demo 2015.
-		</footer>
+				</article>
+			</script>
+			<footer class="footer">
+				&copy; demo 2015.
+			</footer>
+		</div>
 		<script>
 			(function(win, $){
 				var doc = win.document,
@@ -571,38 +599,38 @@
 
 			    $(".tabpage").tab({
 			    	navItem: "a",
-			    	tabDefaultNavIndex:0
+			    	tabDefaultNavIndex: 0
 			    });
 
-			    function _play(num){
-			    	var self = this;
-			    	if (num > 0){
-			    		num = self.start + num;
-			    		if (num>=self.max) num = 0;
-			    		self.start = num;
-			    		self.nextCallback(num, function(){
-							_playGo.call(self, function() {
-								self.next();
-				    		});
-						});
-			    	}else if (num < 0){
-			    		num = self.start + num;
-			    		if (num <0) num = self.max-1;
-			    		self.start = num;
-						self.prevCallback(num, function(){
-							_playGo.call(self, function() {
-								self.next();
+				function _play(num) {
+					var self = this;
+					if (!self.isStop) {
+						if (num > 0) {
+							num = self.start + num;
+							if (num >= self.max) num = 0;
+							self.start = num;
+							self.nextCallback(num, function() {
+								_playGo.call(self, function() {
+									self.next();
+								});
 							});
-						});
-			    	}
-			    }
+						} else if (num < 0) {
+							num = self.start + num;
+							if (num < 0) num = self.max - 1;
+							self.start = num;
+							self.prevCallback(num, function() {
+								_playGo.call(self, function() {
+									self.next();
+								});
+							});
+						}
+					}
+				}
 
 			    function _playGo(callback){
 			    	var self = this;
-					if (!self.isStop) {
 				    	self.iTimeout && clearTimeout(self.iTimeout);
 						self.iTimeout = setTimeout(callback, self.interval);
-					}
 			    }
 
 			    var slider = function(ops){
@@ -627,15 +655,18 @@
 			    		return this;
 			    	},
 			    	prev: function(){
+			    		this.isStop = false;
 			    		_play.call(this, -1);
 			    		return this;
 			    	},
 			    	next: function(){
+			    		this.isStop = false;
 			    		_play.call(this, 1);
 			    		return this;
 			    	},
 			    	stop: function(){
 				    	self.iTimeout && clearTimeout(self.iTimeout);
+				    	this.isStop = true;
 				    	return this;
 			    	},
 			    	play: function(){
@@ -646,34 +677,70 @@
 			    };
 			    slider.fn.init.prototype = slider.fn;
 
+				function _init(elem, options) {
+					var o = options;
+					$(elem).find(".slider_main ul").css(o.type ? {
+						width: o.len * o.width
+					} : {
+						width: o.width,
+						height: o.len * o.height
+					}).find("li").css(o.type ? {
+						float: "left",
+						width: o.width,
+						height: o.height
+					} : {
+						width: o.width,
+						height: o.height
+					});
+				}
+
+		    	function _sliderMark(num){
+		    		$(".slider_mark a").removeClass('on').eq(num).addClass("on");
+		    	}
+
 			    $.fn.slider = function(ops){
 			    	var elem = this;
 			    	var main = $(elem).find(".slider_main");
 			    	main.find("ul").append(main.find("li").eq(0).clone());
+			    	var type = !ops.type || ops.type == "left" ? true : false;
 			    	var banners = main.find("li"),
-			    		bannerWidth = main.width();
+			    		bannerWidth = main.width(),
+			    		bannerHeight = main.height(),
+			    		len = banners.length;
 
 			    	$(win).on("resize", function(){
-			    		bannerWidth = main.width();
-				    	$(elem).find(".slider_main ul").css({
-				    		width: banners.length * bannerWidth
-				    	}).find("li").css({
-				    		width:bannerWidth
-				    	});
+			    		var bannerWidth = main.width(),
+				    		bannerHeight = main.height(),
+				    		banners = main.find("li"),
+				    		len = banners.length;
+
+			    		_init(elem, {
+			    			len:len, 
+			    			width: bannerWidth,
+			    			height: bannerHeight,
+			    			type: type
+			    		});
 			    	});
-			    	$(this).find(".slider_main ul").css({
-			    		width: banners.length * bannerWidth
-			    	}).find("li").css({
-			    		width:bannerWidth
-			    	});
-			    	function sliderMark(num){
-			    		$(".slider_mark a").removeClass('on').eq(num).addClass("on");
-			    	}
+
+				    _init(this, {
+		    			len:len, 
+		    			width: bannerWidth,
+		    			height: bannerHeight,
+		    			type:type
+		    		});
+
 			    	slider($.extend({
 				    	interval: 5000,
 				    	max: banners.length,
 				    	ready: function(){
 				    		var self = this;
+				    		$(elem).hover(function(){
+				    			self.stop();
+				    		}, function(){
+				    			setTimeout(function(){
+				    				self.play();
+				    			}, self.interval/2);
+				    		});
 				    		$(".slider_prev").click(function(e){
 				    			e.preventDefault();
 				    			self.stop().prev();
@@ -693,20 +760,26 @@
 				    		var ani = main.find("ul").stop(1,1);
 				    		if (num == banners.length -1) {
 								self.start = banners.length-2;
-								ani.css({
+								ani.css(type ? {
 									left: -(bannerWidth * num)
-								}).animate({
+								} : {
+									top: -(bannerHeight * num)
+								}).animate(type ? {
 									left: -(bannerWidth * (num-1))
+								} : {
+									top: -(bannerHeight * (num-1))
 								}, "slow", function(){
 									end();
-									sliderMark(self.start);
+									_sliderMark(self.start);
 								});
 							}else{
-					    		ani.animate({
+					    		ani.animate(type ? {
 					    			left: -(bannerWidth * num)
+					    		} : {
+					    			top: -(bannerHeight * num)
 					    		}, "slow", function(){
 									end();
-									sliderMark(self.start);
+									_sliderMark(self.start);
 								});
 					    	}
 				    	},
@@ -715,28 +788,45 @@
 				    		var ani = main.find("ul").stop(1,1);
 							if (num == banners.length - 1) {
 								self.start = 0;
-								ani.animate({
+								ani.animate(type ? {
 									left: -(bannerWidth * num)
+								} : {
+									top: -(bannerHeight * num)
 								}, "slow", function() {
-									ani.css({
+									ani.css(type ? {
 										left: 0
+									} : {
+										top: 0
 									});
 									end();
-									sliderMark(self.start);
+									_sliderMark(self.start);
 								});
 							} else {
-								ani.animate({
+								ani.animate(type ? {
 									left: -(bannerWidth * num)
+								} : {
+									top: -(bannerHeight * num)
 								}, "slow", function() {
 									end();
-									sliderMark(self.start);
+									_sliderMark(self.start);
 								});
 							}
 						}
 				    },ops));
 			    };
 
-			    $(".slider_banner").slider();
+			    $.fn.sliderTop = function(ops){
+			    	return $(this).slider($.extend({
+				    	type: "top"
+				    }, (ops || {})));
+			    };
+			    $.fn.sliderLeft = function(ops){
+			    	return $(this).slider($.extend({
+				    	type: "left"
+				    }, (ops || {})));
+			    };
+
+			    $(".slider_banner").sliderTop();
 
 			    var roller = function(ops){
 			    	return new roller.fn.init(ops);
@@ -836,7 +926,7 @@
 			    $.fn.loadMore = function(ops){
 			    	var elem = this,
 			    		more = $(elem).find(".list_more").data("index", 0);
-			    	$(win).on("scroll", function(){
+			    	$(".page").on("scroll", function(){
 			    		if ($(elem).parents(ops.parent).is(":visible")){
 				    		var toTopevent = doc.documentElement.scrollTop || doc.body.scrollTop || 0,
 						    	top = more.offset().top,
@@ -847,7 +937,7 @@
 					    			index+=1;
 					    			if (index <= ops.max){
 						    			more.data("index", index);
-						    			ops.more && ops.more(index, function(){
+						    			ops.more && ops.more.call(elem, index, function(){
 						    				more.data("isLoad", false).html(ops.loadedText);
 						    			});
 						    		}else{
