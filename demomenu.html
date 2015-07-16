@@ -8,7 +8,7 @@
 			html,body{width:100%;height:100%;}
 			body{position:relative;font-size:16px;font-family:"Microsoft YaHei";}
 			body,p,h1,h2,h3,h4,h5,h6,ul,li,menu,ol{list-style:none;padding:0;margin:0;}
-			header,article,footer,label{display:block;}
+			header,article,footer,label,menu{display:block;}
 			input,select,button{vertical-align: top;}
 
 			body{background:rgb(102,102,102);}
@@ -184,6 +184,15 @@
 			    70%{-webkit-transform:rotateY(180deg);}
 			    100%{-webkit-transform:rotateY(0deg);}
 			}
+
+			.multi_menu{margin:0;position:relative;}
+			.multi_menu li{padding:0.625em 0;border-bottom:0.0625em rgb(169,169,169) solid;}
+			.multi_menu li a{text-decoration: none;display:block;width:100%;color:rgb(100,149,237);text-indent: 0.625em;}
+			.multi_menu li a i{width:0.625em;height:0.625em;display:inline-block;background:rgb(169,169,169);float:right;margin:0.3125em 0.625em 0 0;}
+			.multi_menu_item{display:none;}
+			.multi_menu_item.on{position:absolute;top:0;left:0;right:0;bottom:0;display:block;background:rgb(255,215,0);}
+			.multi_menu_item.on li:first-child a{text-indent:0.9375em;}
+			.multi_menu_item.on li:first-child a i{float:left;margin:0.3125em 0 0 0.625em;}
 		</style>
 		<script src="jquery.js"></script>
 	</head>
@@ -364,6 +373,10 @@
 									<h1>form</h1>
 								</header>
 								<div class="send_form_main">
+									<div class="shopping">
+										<p class="buy_count"><span>0</span></p>
+										<button class="buy button">Buy</button><button class="buy_cancel button">Cancel</button>
+									</div>
 									<form action="" method="post" name="">
 										<table>
 											<thead>
@@ -407,15 +420,82 @@
 							</article>
 						</div>
 						<div class="tab_item">
-							<div class="shopping">
-								<p class="buy_count"><span>0</span></p>
-								<button class="buy button">Buy</button><button class="buy_cancel button">Cancel</button>
-							</div>
+							<menu class="multi_menu">
+								<li><a href="#">列表单元<i></i></a>
+									<ol class="multi_menu_item">
+										<li><a href="#">返回1<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a>
+											<ol class="multi_menu_item">
+												<li><a href="#">返回F1<i></i></a></li>
+												<li><a href="#">列表子单元<i></i></a>
+													<ol class="multi_menu_item">
+														<li><a href="#">返回FA1<i></i></a></li>
+														<li><a href="#">列表子单元<i></i></a>
+															<ol class="multi_menu_item">
+																<li><a href="#">返回FAA1<i></i></a></li>
+																<li><a href="#">列表子单元<i></i></a></li>
+																<li><a href="#">列表子单元<i></i></a></li>
+																<li><a href="#">列表子单元<i></i></a></li>
+																<li><a href="#">列表子单元<i></i></a></li>
+															</ol>
+														</li>
+														<li><a href="#">列表子单元<i></i></a></li>
+														<li><a href="#">列表子单元<i></i></a></li>
+														<li><a href="#">列表子单元<i></i></a></li>
+													</ol>
+												</li>
+												<li><a href="#">列表子单元<i></i></a></li>
+												<li><a href="#">列表子单元<i></i></a></li>
+												<li><a href="#">列表子单元<i></i></a></li>
+											</ol>
+										</li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+									</ol>
+								</li>
+								<li><a href="#">列表单元<i></i></a>
+									<ol class="multi_menu_item">
+										<li><a href="#">返回2<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+									</ol>
+								</li>
+								<li><a href="#">列表单元<i></i></a>
+									<ol class="multi_menu_item">
+										<li><a href="#">返回3<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+									</ol>
+								</li>
+								<li><a href="#">列表单元<i></i></a>
+									<ol class="multi_menu_item">
+										<li><a href="#">返回4<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+									</ol>
+								</li>
+								<li><a href="#">列表单元<i></i></a>
+									<ol class="multi_menu_item">
+										<li><a href="#">返回5<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+										<li><a href="#">列表子单元<i></i></a></li>
+									</ol>
+								</li>
+							</menu>
 						</div>
 					</div>
 				</div>
 			</div>
-				<script type="text/html" id="dialogtmpl">
+			<script type="text/html" id="dialogtmpl">
 				<div class="dialog_blank"></div>
 				<article class="dialog">
 					<header>
@@ -546,7 +626,7 @@
 			    };
 
 			    $(".dialog_open").click(function(e){
-			    	$.overlay({
+			    	$.alert({
 			    		enterContext: "确 认",
 			    		cancelContext: "取 消",
 			    		ready: function(target){
@@ -599,7 +679,7 @@
 
 			    $(".tabpage").tab({
 			    	navItem: "a",
-			    	tabDefaultNavIndex: 0
+			    	tabDefaultNavIndex: 2
 			    });
 
 				function _play(num) {
@@ -665,7 +745,7 @@
 			    		return this;
 			    	},
 			    	stop: function(){
-				    	self.iTimeout && clearTimeout(self.iTimeout);
+				    	this.iTimeout && clearTimeout(this.iTimeout);
 				    	this.isStop = true;
 				    	return this;
 			    	},
@@ -957,6 +1037,69 @@
 			    	more: function(index, end){
 			    		console.log(index)
 			    		end();
+			    	}
+			    });
+
+			    var multiMenu = function(elem, ops){
+			    	return new multiMenu.fn.init(elem, ops);
+			    };
+			    multiMenu.fn = multiMenu.prototype = {
+			    	init:function(elem, ops){
+			    		this.item = 'multi_menu_item';
+			    		this.active = "on";
+			    		$.extend(this, ops);
+			    		this.elem = elem;
+			    		this.initMenu($(elem).children());
+			    		return this;
+			    	},
+			    	initMenu: function(parentDom){
+			    		var self = this;
+			    		parentDom = parentDom || $(self.elem).children();
+			    		parentDom && parentDom.each(function(){
+					    	var children = $(this).children();
+					    	children.eq(0).click(function(e){
+					    		var next = $(this).next();
+						    	if (next.length == 1 && next.hasClass(self.item)){
+						    		e.preventDefault();
+									(self.handle && self.handle.loadMenu ? self.handle.loadMenu : function(end) {
+										end();
+									})(function() {
+										next.addClass(self.active);
+										self.initSmenu(children);
+									});
+								}
+						    });
+					    });
+					    return this;
+			    	},
+			    	initSmenu: function(parentDom){
+			    		var self = this;
+			    		parentDom && parentDom.each(function(){
+				    		if ($(this).hasClass(self.item)){
+				    			var submenu = $(this);
+				    			submenu.children().eq(0).find("a").off("click").on("click", function(e){
+						    		e.preventDefault();
+						    		submenu.removeClass(self.active);
+						    	});
+						    	self.initMenu(submenu.children());
+				    		}
+				    	});
+				    	return this;
+			    	}
+			    };
+			    multiMenu.fn.init.prototype = multiMenu.fn;
+
+			    $.fn.multiMenu = function(ops){
+			    	return multiMenu(this, ops);
+			    };
+
+			    $(".multi_menu").multiMenu({
+			    	item: 'multi_menu_item',
+			    	active: "on",
+			    	handle: {
+			    		loadMenu:function(end){
+			    			end();
+			    		}
 			    	}
 			    });
 
