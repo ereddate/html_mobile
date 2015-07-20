@@ -253,7 +253,7 @@
 												</header>
 												<div class="item_context">
 													<a href="#"><img src="http://img.dev.domyshop.com/editor/20150130/14226080403644.jpg?v=0.0.1" /></a>
-													<p><button class="button dialog_open">dialog open</button><button class="button">button</button></p>
+													<p><button class="button dialog_open">dialog open</button><button class="button remove_item">remove_item</button></p>
 												</div>
 											</article>
 										</li>
@@ -1105,6 +1105,15 @@
 			    			end();
 			    		}
 			    	}
+			    });
+
+			    function licount(){
+			    	$(".datalist_header h1").html("Data List("+$(".list").find(".item").length+")")
+			    }
+
+			    $(".remove_item").click(function(e){
+			    	$(this).parents(".item").parent().remove();
+			    	licount();
 			    });
 
 			})(this, jQuery);
