@@ -103,7 +103,8 @@
 			.tab_nav a.on:first-child{border-bottom-right-radius: 0.3125em;}
 			.tab_nav a.on:last-child{border-bottom-left-radius: 0.3125em;}
 			.tab_main{}
-			.tab_item{display:none;background:rgb(239,239,239);border-radius:0.3125em;padding:0.625em;}
+			.tab_item{display:none;background:rgb(239,239,239);border-radius:0.3125em;padding:0.625em 0;}
+			.tab_item.tab_list{padding:0.625em;}
 			.tab_item_show{display:block;}
 
 			.tabpage{margin:0.625em 0;}
@@ -111,7 +112,7 @@
 			.tabpage .item{margin:0;}
 
 			.bottom_button{position:fixed;bottom:0;left:0;right:0;height:3.75em;margin:0;background:rgb(239,239,239);}
-			.bottom_button a{height:100%;line-height:3.75em;padding:0 0.625em;width:6.25em;}
+			.bottom_button a{height:100%;line-height:3.75em;padding:0 0.625em;width:5em;}
 			.bottom_button a.on{border-top-left-radius:0;border-top-right-radius:0;}
 			.bottom_button a.on:first-child{border-bottom-right-radius: 0;}
 			.bottom_button a.on:last-child{border-bottom-left-radius: 0;}
@@ -185,12 +186,14 @@
 			    100%{-webkit-transform:rotateY(0deg);}
 			}
 
-			.multi_menu{margin:0;position:relative;}
+			.multi_menu{margin:0;position:absolute;top:3.75em;left:0;right:0;bottom:3.75em;overflow:auto;overflow-x:hidden;background:rgb(255,255,255);}
 			.multi_menu li{padding:0.625em 0;border-bottom:0.0625em rgb(169,169,169) solid;}
 			.multi_menu li a{text-decoration: none;display:block;width:100%;color:rgb(100,149,237);text-indent: 0.625em;}
 			.multi_menu li a i{width:0.625em;height:0.625em;display:inline-block;background:rgb(169,169,169);float:right;margin:0.3125em 0.625em 0 0;}
-			.multi_menu_item{display:none;}
-			.multi_menu_item.on{position:absolute;top:0;left:0;right:0;bottom:0;display:block;background:rgb(255,215,0);}
+			.multi_menu_item{display:none;overflow:hidden;}
+			.multi_menu_item.on{position:absolute;top:0;left:0;right:0;bottom:0;display:block;background:rgba(0,0,0,.5);}
+			.multi_menu_item.on .multi_menu_item.on{background:none;}
+			.multi_menu_item.on li{background:rgb(255,255,255);}
 			.multi_menu_item.on li:first-child a{text-indent:0.9375em;}
 			.multi_menu_item.on li:first-child a i{float:left;margin:0.3125em 0 0 0.625em;}
 		</style>
@@ -234,7 +237,7 @@
 				<div class="tabpage">
 					<div class="tab_nav bottom_button"><a href="#">datalist</a><a href="#">form</a><a href="#">tab3</a></div>
 					<div class="tab_main">
-						<div class="tab_item">
+						<div class="tab_item tab_list">
 							<article class="datalist_main">
 								<header class="datalist_header">
 									<h1>Data List(10)</h1>
@@ -367,7 +370,7 @@
 								<div class="list_more"><a href="#">more...</a></div>
 							</article>
 						</div>
-						<div class="tab_item">
+						<div class="tab_item tab_list">
 							<article class="send_form">
 								<header class="send_form_header">
 									<h1>form</h1>
@@ -1058,7 +1061,8 @@
 			    		parentDom && parentDom.each(function(){
 					    	var children = $(this).children();
 					    	children.eq(0).click(function(e){
-					    		var next = $(this).next();
+					    		var elem = this,
+					    			next = $(elem).next();
 						    	if (next.length == 1 && next.hasClass(self.item)){
 						    		e.preventDefault();
 									(self.handle && self.handle.loadMenu ? self.handle.loadMenu : function(end) {
